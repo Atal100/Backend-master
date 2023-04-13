@@ -1,5 +1,6 @@
 const Error = require("../models/ApiError");
 const concert = require('../models/concert');
+const music = require("../models/music");
 
 
 module.exports = {
@@ -21,10 +22,15 @@ module.exports = {
         const concertId = req.params.id
 
         concert.findById(concertId)
-            .then((hall) => {
-                if (hall !== null) {
+            .then((concert) => {
+                if (concert !== null) {
+                    let _id = concert.id
+                    let artists = concert.artists
+                    let date = concert.date
+                    let adres = concert.adres
+                    let user = concert.user
                     res.status(200).json({
-                        hall
+                        _id,artists,date,adres,user
                     })
                 } else {
                     next(new Error('Concert not found, wrong identifier.', 422))

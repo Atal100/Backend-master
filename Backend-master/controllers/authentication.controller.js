@@ -33,14 +33,22 @@ module.exports = {
 
             .then(result => {
                 if (result.password == userPropsPassword) {
+                    
+                    let _id = result.id;
+                    let email = result.email;
+                    let firstname = result.firstname;
+                    let lastname = result.lastname;
                     let token = auth.encodeToken(result._id);
                     
-                    let resultObject = {
-                        "token": token,
-                        "Message:": "Succesful login for user: " + result.email,
-                        "user": result
+
+                    res.status(200).json({
+                        _id,
+                        email,
+                        firstname,
+                        lastname,
+                        token,
                     }
-                    res.status(200).json(resultObject).end();
+                        ).end();
                 } else {
                     res.status(401).json({ message: 'Password or email is incorrect' }).end();
                 }
@@ -69,16 +77,29 @@ module.exports = {
     },
 
     getAllUsers(req, res, next) {
-        user.find({})
+        const userId = req.params.id
+
+        User.findById(userId)
             .then((user) => {
-                res.status(200).json(
-                    user
-                )
+                if (user !== null) {
+                    let _id = user.id;
+                    let email = user.email;
+                    let firstname = user.firstname;
+                    let lastname = user.lastname;
+                    res.status(200).json({
+                        _id,
+                        email,
+                        firstname,
+                        lastname,
+                        
+                    })
+                } else {
+                    next(new Error('user not found, wrong identifier.', 422))
+                }
             })
             .catch(() => {
-                next(new Error({ message: 'user not found, no users have been posted yet', code: 404 }))
+                next(new Error('user not found, wrong identifier', 422))
             })
-    },
-
+        }
 
 }

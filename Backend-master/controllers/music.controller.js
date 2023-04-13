@@ -23,8 +23,14 @@ module.exports = {
         music.findById(musicId)
             .then((music) => {
                 if (music !== null) {
+                    let _id = music.id
+                    let name = music.name
+                    let artists = music.artists
+                    let duration = music.duration
+                    let country = music.country
+                    let user = music.user
                     res.status(200).json({
-                        music
+                        _id,name,artists,duration,country,user
                     })
                 } else {
                     next(new Error('music not found, wrong identifier.', 422))

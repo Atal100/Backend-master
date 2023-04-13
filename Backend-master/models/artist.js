@@ -18,12 +18,12 @@ const ArtistSchema = new Schema({
         type: String,
         required: false
     },
-    // user: {
-    //     type:Schema.Types.ObjectId,
-    //     ref: "user",
-    //     required: [true,"User is required"]
+    user: {
+        type:Schema.Types.ObjectId,
+        ref: "user",
+        required: [true,"User is required"]
 
-    // }
+    }
 })
 
 module.exports = mongoose.model('artist', ArtistSchema)

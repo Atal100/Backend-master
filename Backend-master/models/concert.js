@@ -8,10 +8,10 @@ const ConcertSchema = new Schema({
         minLength: 1,
         required: [true, 'Name is required'],
     },
-    music: {
-        type: Schema.Types.ObjectId,
+    artists: {
+        type: Schema.Types.Array,
         ref: 'artist',
-        required: [true, "Music is required"],
+        required: [true, "Artist is required"],
     },
     date: {
         type: Date,
@@ -22,12 +22,12 @@ const ConcertSchema = new Schema({
         minLength: 1,
         required: [true,"Adress is required"]
     },
-    // user: {
-    //     type:Schema.Types.ObjectId,
-    //     ref: "user",
-    //     required: [true,"User is required"]
+    user: {
+        type:Schema.Types.ObjectId,
+        ref: "user",
+        required: [true,"User is required"]
 
-    // }
+    }
 })
 
 module.exports = mongoose.model('concert', ConcertSchema)
