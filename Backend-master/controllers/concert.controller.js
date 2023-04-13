@@ -25,12 +25,13 @@ module.exports = {
             .then((concert) => {
                 if (concert !== null) {
                     let _id = concert.id
+                    let name = concert.name
                     let artists = concert.artists
                     let date = concert.date
                     let adres = concert.adres
                     let user = concert.user
                     res.status(200).json({
-                        _id,artists,date,adres,user
+                        _id,name,artists,date,adres,user
                     })
                 } else {
                     next(new Error('Concert not found, wrong identifier.', 422))
